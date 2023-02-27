@@ -4,7 +4,7 @@ This extension allows to display file and folder icons in dired mode and uses mi
 
 Many thanks to **@vinceliuice**, whose icon resource files for the mimes section of the **Qogir** work are used in this repository by default.
 
-![screenshot](screenshot.png)
+![screenshot](screenshot2.png)
 
 ## Installation
 
