@@ -7,7 +7,7 @@
 ;; Copyright (C) 2023, Reion Wong, all rights reserved.
 ;; Created: 2023-02-27 02:24:17 +0800
 ;; Version: 0.1
-;; Last-Updated: 2023-02-27 02:24:17 +0800
+;; Last-Updated: 2023-02-27 23:52:19 +0800
 ;; URL: https://github.com/reionwong/dired-mimeicon
 ;; Keywords:
 ;; Compatibility: emacs-version >= 27
