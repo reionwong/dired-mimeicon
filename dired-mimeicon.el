@@ -19,9 +19,20 @@
 (require 'cl-lib)
 (require 'dired)
 
-(defvar dired-mimeicon-name "WhiteSur")
-(defvar dired-mimeicon-root-dir (expand-file-name "themes" (file-name-directory load-file-name)))
-(defvar dired-mimeicon-dir (concat dired-mimeicon-root-dir "/" dired-mimeicon-name "/"))
+(defgroup dired-mimeicon nil
+  "Group dired mimeicon"
+  :group 'edit)
+
+(defcustom dired-mimeicon-name "Qogir"
+  "The name of the icon theme"
+  :type 'string
+  :group 'dired-mimeicon)
+
+(defconst dired-mimeicon-root-dir
+  (expand-file-name "themes" (file-name-directory load-file-name)))
+
+(defvar dired-mimeicon-dir
+  (concat dired-mimeicon-root-dir "/" dired-mimeicon-name "/"))
 
 (defun dired-mimeicon-overlays-in (begin-point end-point)
   (cl-remove-if-not
@@ -38,13 +49,12 @@
 
 (defun dired-mimeicon-insert-icon-to-overlay (pos icon-filename)
   "Add ICONS"
-
   (let ((cur-overlay (make-overlay (1- pos) pos)))
     (overlay-put cur-overlay 'dired-mimeicon-overlay t)
     (overlay-put cur-overlay 'display (create-image icon-filename 'svg nil
 						    :ascent 'center
-						    :width '16
-						    :height '16))
+						    :width '26
+						    :height '26))
     (overlay-put cur-overlay 'after-string " ")
     ;; (overlay-put cur-overlay 'after-string (propertize " " 'face `(:background ,(face-attribute 'hl-line :background))))
     ))

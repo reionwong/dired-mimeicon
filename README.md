@@ -2,7 +2,7 @@
 
 This extension allows to display file and folder icons in dired mode and uses mimetype as the displayed logo and adheres to the icon-theme-spec file naming convention, which will help you to apply icon themes that you can download from the internet in your emacs.
 
-Many thanks to @vinceliuice, whose icon resource files for the mimes section of the WhiteSur-icon-theme work are used in this repository by default.
+Many thanks to **@vinceliuice**, whose icon resource files for the mimes section of the **Qogir** work are used in this repository by default.
 
 ![screenshot](screenshot.png)
 
