@@ -7,7 +7,7 @@
 ;; Copyright (C) 2023, Reion Wong, all rights reserved.
 ;; Created: 2023-02-27 02:24:17 +0800
 ;; Version: 0.1
-;; Last-Updated: 2023-02-27 23:52:19 +0800
+;; Last-Updated: 2023-03-05 01:51:19 +0800
 ;; URL: https://github.com/reionwong/dired-mimeicon
 ;; Keywords:
 ;; Compatibility: emacs-version >= 27
@@ -73,26 +73,24 @@
 			       (file-name-extension filename t)))
 		   overlay)
 	      (if mime-type
-		  (setq mimetype (replace-regexp-in-string "/" "-" mime-type))
-		))
+		  (setq mimetype (replace-regexp-in-string "/" "-" mime-type))))
+
 	    (let ((icon-filename (if (file-directory-p filename)
 				     (concat dired-mimeicon-dir "inode-directory.svg")
-				   (concat dired-mimeicon-dir mimetype ".svg")
+				   (if (string-equal mimetype "image-svg+xml")
+					(concat dired-mimeicon-dir filename)
+				      (concat dired-mimeicon-dir mimetype ".svg"))
 				   )))
 	      (unless (and icon-filename (file-exists-p icon-filename))
-		(setq icon-filename (concat dired-mimeicon-dir "application-x-sharedlib.svg"))
-		)
-	      (dired-mimeicon-insert-icon-to-overlay (point) icon-filename)
-	      ))))
+		(setq icon-filename (concat dired-mimeicon-dir "application-x-sharedlib.svg")))
+	      (dired-mimeicon-insert-icon-to-overlay (point) icon-filename)))))
       (forward-line 1))))
 
 (defun dired-mimeicon-refresh-advice (fn &rest args)
   "Advice function for FN with ARGS."
   (apply fn args)
   (when dired-mimeicon-mode
-    (dired-mimeicon-refresh)
-    )
-  )
+    (dired-mimeicon-refresh)))
 
 (defun dired-mimeicon-enable ()
   "Enable the Dired Mimeicon Mode."
@@ -105,9 +103,7 @@
     (with-eval-after-load 'dired-narrow
       (advice-add 'dired-narrow--internal :around #'dired-mimeicon-refresh-advice)
       )
-    (dired-mimeicon-refresh)
-    )
-  )
+    (dired-mimeicon-refresh)))
 
 (defun dired-mimeicon-disable ()
   "Is not enabled Dired Mimeicon Mode."
@@ -117,8 +113,7 @@
   (advice-remove 'dired-do-kill-lines #'dired-mimeicon-refresh-advice)
   (advice-remove 'dired-insert-subdir #'dired-mimeicon-refresh-advice)
   (advice-remove 'dired-internal-do-deletions #'dired-mimeicon-refresh-advice)
-  (advice-remove 'dired-narrow--internal #'dired-mimeicon-refresh-advice)
-  )
+  (advice-remove 'dired-narrow--internal #'dired-mimeicon-refresh-advice))
 
 ;;;###autoload
 (define-minor-mode dired-mimeicon-mode
