@@ -18,6 +18,7 @@
 ;;; Code:
 (require 'cl-lib)
 (require 'dired)
+(require 'mailcap)
 
 (defgroup dired-mimeicon nil
   "Group dired mimeicon"
